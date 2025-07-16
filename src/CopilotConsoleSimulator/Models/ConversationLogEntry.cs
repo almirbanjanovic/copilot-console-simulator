@@ -5,20 +5,20 @@ namespace CopilotConsoleSimulator.Models;
 /// </summary>
 public class ConversationLogEntry
 {
-    public DateTime Timestamp { get; set; }
+    public DateTime Timestamp { get; init; }
 
-    public string UserInput { get; set; } = string.Empty;
+    public string UserInput { get; init; } = string.Empty;
 
-    public string Response { get; set; } = string.Empty;
+    public string Response { get; init; } = string.Empty;
 
     public int ResponseTime 
     { 
         get; 
-        set 
+        init 
         {
             field = value < 0 ? 0 : value;
         }
     }
 
-    public string SessionId { get; set; } = string.Empty;
+    public string SessionId { get; init; } = string.Empty;
 }

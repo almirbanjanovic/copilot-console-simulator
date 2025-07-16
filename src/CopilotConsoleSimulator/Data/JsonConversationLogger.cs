@@ -12,7 +12,11 @@ public class JsonConversationLogger : IConversationLogger
     private readonly string _logFilePath;
     private readonly JsonSerializerOptions _jsonOptions;
 
-    public JsonConversationLogger(string logFilePath = "conversation_log.json")
+    // Constants for JSON handling
+    private const string DefaultLogFileName = "conversation_log.json";
+    private const string EmptyJsonArray = "[]";
+
+    public JsonConversationLogger(string logFilePath = DefaultLogFileName)
     {
         _logFilePath = logFilePath;
         _jsonOptions = new JsonSerializerOptions
@@ -59,7 +63,7 @@ public class JsonConversationLogger : IConversationLogger
     /// </summary>
     public async Task ClearHistoryAsync()
     {
-        await File.WriteAllTextAsync(_logFilePath, "[]");
+        await File.WriteAllTextAsync(_logFilePath, EmptyJsonArray);
     }
 
     /// <summary>
@@ -68,13 +72,13 @@ public class JsonConversationLogger : IConversationLogger
     private async Task<List<ConversationLogEntry>> GetAllEntriesAsync()
     {
         if (!File.Exists(_logFilePath))
-            return new List<ConversationLogEntry>();
+            return [];
 
         var json = await File.ReadAllTextAsync(_logFilePath);
         if (string.IsNullOrWhiteSpace(json))
-            return new List<ConversationLogEntry>();
+            return [];
 
         return JsonSerializer.Deserialize<List<ConversationLogEntry>>(json, _jsonOptions) 
-               ?? new List<ConversationLogEntry>();
+               ?? [];
     }
 }

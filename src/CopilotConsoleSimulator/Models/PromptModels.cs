@@ -16,9 +16,9 @@ public class PromptRequest
         }
     } = string.Empty;
 
-    public DateTime RequestTime { get; set; } = DateTime.UtcNow;
+    public DateTime RequestTime { get; init; } = DateTime.UtcNow;
 
-    public string SessionId { get; set; } = string.Empty;
+    public string SessionId { get; init; } = string.Empty;
 
     public Dictionary<string, string> Metadata { get; set; } = new();
 }
@@ -37,7 +37,7 @@ public class PromptResponse
         }
     } = string.Empty;
 
-    public DateTime ResponseTime { get; set; } = DateTime.UtcNow;
+    public DateTime ResponseTime { get; init; } = DateTime.UtcNow;
 
     public int ProcessingTimeMs 
     { 
