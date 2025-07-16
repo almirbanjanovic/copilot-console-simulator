@@ -6,7 +6,7 @@ echo "🧪 Running Unit Tests for Copilot Console Simulator"
 echo "=================================================="
 
 # Navigate to test directory
-cd Tests
+cd tests/CopilotConsoleSimulator.Tests
 
 # Restore dependencies
 echo "📦 Restoring test dependencies..."

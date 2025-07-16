@@ -14,6 +14,12 @@ A .NET 9.0 console application that simulates interactions with an AI assistant 
 ## Project Structure
 
 ```
+├── .gitignore                       # Git ignore rules
+├── CopilotConsoleSimulator.sln      # Visual Studio solution file
+├── LICENSE                          # License file
+├── README.md                        # This file
+├── run-tests.bat                    # Windows test runner script
+├── run-tests.sh                     # Unix test runner script
 ├── src/
 │   └── CopilotConsoleSimulator/
 │       ├── Data/                    # Data access layer
@@ -28,13 +34,15 @@ A .NET 9.0 console application that simulates interactions with an AI assistant 
 │       ├── Services/                # Business logic
 │       │   ├── PromptService.cs
 │       │   └── ResponseGeneratorService.cs
+│       ├── copilot-console-simulator.csproj  # Project file
 │       └── Program.cs               # Application entry point
 └── tests/
     └── CopilotConsoleSimulator.Tests/
         ├── Models/
         │   └── ModelTests.cs
-        └── Services/
-            └── PromptServiceTests.cs
+        ├── Services/
+        │   └── PromptServiceTests.cs
+        └── CopilotConsoleSimulator.Tests.csproj  # Test project file
 ```
 
 ## Getting Started
@@ -47,8 +55,9 @@ A .NET 9.0 console application that simulates interactions with an AI assistant 
 ### Building the Solution
 
 ```bash
-# Clone or navigate to the solution directory
-cd CopilotConsoleSimulator-Solution
+# Clone the repository
+git clone https://github.com/almirbanjanovic/copilot-console-simulator.git
+cd copilot-console-simulator
 
 # Restore packages and build
 dotnet build
@@ -139,6 +148,21 @@ dotnet test
 dotnet test --collect:"XPlat Code Coverage"
 ```
 
+### Alternative: Using the test scripts
+
+You can also use the provided test runner scripts:
+
+**Windows:**
+```cmd
+run-tests.bat
+```
+
+**Unix/Linux/macOS:**
+```bash
+chmod +x run-tests.sh
+./run-tests.sh
+```
+
 ### Test Coverage
 
 - **Model Tests**: Verify data model behavior and property setting
@@ -154,7 +178,7 @@ Conversation logs are saved to `conversation_log.json` in the application direct
 ```json
 [
   {
-    "timestamp": "2024-01-15T14:30:15.123Z",
+    "timestamp": "2025-07-16T14:30:15.123Z",
     "userInput": "Hello, how are you?",
     "response": "Great question! I think...",
     "responseTime": 750,

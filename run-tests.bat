@@ -5,7 +5,7 @@ echo 🧪 Running Unit Tests for Copilot Console Simulator
 echo ==================================================
 
 REM Navigate to test directory
-cd Tests
+cd tests\CopilotConsoleSimulator.Tests
 
 REM Restore dependencies
 echo 📦 Restoring test dependencies...
