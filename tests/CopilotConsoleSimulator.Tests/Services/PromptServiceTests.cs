@@ -98,7 +98,7 @@ public class PromptServiceTests
 
         public Task<List<ConversationLogEntry>> GetHistoryAsync(string? sessionId = null)
         {
-            return Task.FromResult(new List<ConversationLogEntry>());
+            return Task.FromResult<List<ConversationLogEntry>>([]);
         }
 
         public Task ClearHistoryAsync()
@@ -142,7 +142,7 @@ public class PromptServiceTests
 
         public List<string> GetResponseTemplates()
         {
-            return new List<string>();
+            return [];
         }
     }
 }

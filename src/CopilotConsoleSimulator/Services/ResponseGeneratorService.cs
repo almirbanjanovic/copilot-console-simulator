@@ -14,8 +14,7 @@ public class ResponseGeneratorService : IResponseGenerator
     public ResponseGeneratorService()
     {
         _random = new Random();
-        _responseTemplates = new List<string>
-        {
+        _responseTemplates = [
             "That's an interesting question! Let me think about that for a moment.",
             "I understand what you're asking. Here's my perspective on that:",
             "Great question! This is a topic I can definitely help with.",
@@ -26,7 +25,7 @@ public class ResponseGeneratorService : IResponseGenerator
             "That's a complex topic. Let me try to explain it simply:",
             "Good question! I think the key thing to consider is:",
             "I'm glad you brought this up. Here's what I think:"
-        };
+        ];
     }
 
     /// <summary>
@@ -67,7 +66,7 @@ public class ResponseGeneratorService : IResponseGenerator
     /// </summary>
     public List<string> GetResponseTemplates()
     {
-        return new List<string>(_responseTemplates);
+        return [.. _responseTemplates];
     }
 
     /// <summary>

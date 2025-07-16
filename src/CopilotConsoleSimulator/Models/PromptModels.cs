@@ -5,9 +5,21 @@ namespace CopilotConsoleSimulator.Models;
 /// </summary>
 public class PromptRequest
 {
-    public string Input { get; set; } = string.Empty;
+    public string Input 
+    { 
+        get; 
+        set 
+        {
+            field = string.IsNullOrWhiteSpace(value) 
+                ? string.Empty 
+                : value.Trim();
+        }
+    } = string.Empty;
+
     public DateTime RequestTime { get; set; } = DateTime.UtcNow;
+
     public string SessionId { get; set; } = string.Empty;
+
     public Dictionary<string, string> Metadata { get; set; } = new();
 }
 
@@ -16,9 +28,36 @@ public class PromptRequest
 /// </summary>
 public class PromptResponse
 {
-    public string Response { get; set; } = string.Empty;
+    public string Response 
+    { 
+        get; 
+        set 
+        {
+            field = value ?? string.Empty;
+        }
+    } = string.Empty;
+
     public DateTime ResponseTime { get; set; } = DateTime.UtcNow;
-    public int ProcessingTimeMs { get; set; }
-    public string ResponseType { get; set; } = "Default";
+
+    public int ProcessingTimeMs 
+    { 
+        get; 
+        set 
+        {
+            field = value < 0 ? 0 : value;
+        }
+    }
+
+    public string ResponseType 
+    { 
+        get; 
+        set 
+        {
+            field = string.IsNullOrWhiteSpace(value) 
+                ? "Default" 
+                : value.Trim();
+        }
+    } = "Default";
+
     public bool IsSuccess { get; set; } = true;
 }
