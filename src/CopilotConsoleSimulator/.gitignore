@@ -1,0 +1,47 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Logs
+*.log
+*.tlog
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+*.pdb
+
+# Package directories
+packages/
+.vs/
+
+# Dependency files
+project.lock.json
+project.fragment.lock.json
+
+# DotNet specific
+*.nupkg
+*.snupkg
+*.lock.json
+*.props
+*.targets
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
