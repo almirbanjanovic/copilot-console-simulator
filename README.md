@@ -1,6 +1,6 @@
 # Copilot Console Simulator
 
-A .NET 9.0 console application that simulates interactions with an AI assistant like GitHub Copilot. This project demonstrates dependency injection, interfaces, asynchronous programming, and unit testing patterns.
+A modern .NET 9.0 console application that simulates interactions with an AI assistant like GitHub Copilot. This project demonstrates dependency injection, interfaces, asynchronous programming, unit testing patterns, and the latest .NET 9 features including semi-auto properties with the `field` keyword and collection expressions.
 
 ## Features
 
@@ -10,6 +10,7 @@ A .NET 9.0 console application that simulates interactions with an AI assistant 
 - Session management with unique session IDs
 - Unit tests with comprehensive coverage
 - Clean architecture with proper separation of concerns
+- **Modern .NET 9 features**: Semi-auto properties with validation, collection expressions, and preview language features
 
 ## Project Structure
 
@@ -122,9 +123,11 @@ IPromptService promptService = new PromptService(logger, responseGenerator);
 ### Key Components
 
 - **IPromptService**: Handles user input and orchestrates response generation
-- **IResponseGenerator**: Generates contextual responses based on user input
+- **IResponseGenerator**: Generates contextual responses with template collections using collection expressions
 - **IConversationLogger**: Persists conversation history to JSON file
-- **Models**: Define data structures for requests, responses, and log entries
+- **Models**: Define data structures with .NET 9 semi-auto properties for validation
+  - `PromptRequest`: Uses `field` keyword for input trimming
+  - `PromptResponse`: Uses `field` keyword for response validation and processing time validation
 
 ### Response Generation
 
@@ -165,9 +168,10 @@ chmod +x run-tests.sh
 
 ### Test Coverage
 
-- **Model Tests**: Verify data model behavior and property setting
+- **Model Tests**: Verify data model behavior and property setting with .NET 9 features
 - **Service Tests**: Test prompt processing, response generation, and error handling
-- **Mock Implementations**: Isolated testing with test doubles
+- **Mock Implementations**: Isolated testing with test doubles using collection expressions
+- **Modern Test Patterns**: Leveraging .NET 9 collection expressions in test setup
 
 ## Configuration
 
@@ -192,6 +196,74 @@ Conversation logs are saved to `conversation_log.json` in the application direct
 - **Response Templates**: Add custom response templates through `IResponseGenerator.AddResponseTemplate()`
 - **Logger Implementation**: Implement `IConversationLogger` for different storage backends
 - **Response Logic**: Modify `ResponseGeneratorService` for different response patterns
+
+## .NET 9 Modern Features
+
+This project showcases several cutting-edge .NET 9 features:
+
+### Semi-Auto Properties with Field Keyword
+The project uses the new `field` keyword for properties that need validation logic:
+
+```csharp
+public string Input 
+{ 
+    get; 
+    set 
+    {
+        field = string.IsNullOrWhiteSpace(value) 
+            ? string.Empty 
+            : value.Trim();
+    }
+} = string.Empty;
+
+public int ProcessingTimeMs 
+{ 
+    get; 
+    set 
+    {
+        field = value < 0 ? 0 : value;
+    }
+}
+```
+
+### Collection Expressions
+Modern collection initialization using collection expressions:
+
+```csharp
+// Instead of: new List<string>()
+public List<string> GetResponseTemplates() => [];
+
+// Instead of: new List<ConversationLogEntry>()
+return Task.FromResult<List<ConversationLogEntry>>([]);
+
+// Instead of: new List<string> { "template1", "template2" }
+private readonly List<string> _responseTemplates = 
+[
+    "That's an interesting question! Let me think about that for a moment.",
+    "I understand what you're asking. Here's my perspective on that:",
+    // ... more templates
+];
+```
+
+### Top-Level Programs
+Clean, minimal program entry point without ceremony:
+
+```csharp
+using CopilotConsoleSimulator.Data;
+using CopilotConsoleSimulator.Interfaces;
+using CopilotConsoleSimulator.Services;
+
+// Direct dependency injection and execution
+IConversationLogger logger = new JsonConversationLogger();
+IResponseGenerator responseGenerator = new ResponseGeneratorService();
+IPromptService promptService = new PromptService(logger, responseGenerator);
+
+await promptService.StartInteractiveSessionAsync();
+```
+
+**Note**: To use the `field` keyword, the project is configured with:
+- `<LangVersion>preview</LangVersion>` in the project file
+- .NET 9 SDK with preview language features enabled
 
 ## Contributing
 
